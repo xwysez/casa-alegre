@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Alegre | Luxury Hotel & Events</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --gold: #c9a96e;
+            --gold-light: #e8d9b5;
+            --navy: #1a2b4a;
+            --navy-light: #2a3b5a;
+            --cream: #f8f5f0;
+            --brown: #8b7355;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --hover-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        body {
+            background: var(--cream);
+            color: var(--navy);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        header {
+            background: linear-gradient(rgba(26, 43, 74, 0.9), rgba(26, 43, 74, 0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><defs><pattern id="hotel" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="%23c9a96e" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23hotel)"/></svg>');
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hotel-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        
+        .hotel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid var(--gold);
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-btn:hover {
+            background: var(--gold);
+            color: var(--navy);
+        }
+        
+        .secret-btn {
+            background: var(--gold);
+            color: var(--navy);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin-top: 1rem;
+            box-shadow: 0 4px 10px rgba(201, 169, 110, 0.3);
+        }
+        
+        .secret-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(201, 169, 110, 0.4);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .hotel-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+            border-top: 4px solid var(--gold);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+            font-weight: 300;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .section-title i {
+            color: var(--gold);
+        }
+        
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .amenity-card {
+            background: var(--cream);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .amenity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .amenity-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        .amenity-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--navy);
+        }
+        
+        .amenity-card p {
+            color: var(--brown);
+            font-size: 0.9rem;
+        }
+        
+        .documents-section {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+            border-top: 4px solid var(--navy);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .documents-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .search-box {
+            max-width: 400px;
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 30px;
+            font-size: 1rem;
+            background: var(--cream);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .view-toggle {
+            display: flex;
+            background: var(--cream);
+            border-radius: 30px;
+            padding: 0.3rem;
+            width: fit-content;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .toggle-btn {
+            padding: 0.5rem 1.2rem;
+            border: none;
+            background: transparent;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .toggle-btn.active {
+            background: var(--navy);
+            color: white;
+        }
+        
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .menu-item {
+            background: var(--cream);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 3px solid var(--gold);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .file-icon {
+            font-size: 1.8rem;
+            margin-right: 1rem;
+            color: var(--navy);
+            flex-shrink: 0;
+        }
+        
+        .file-info {
+            flex: 1;
+        }
+        
+        .file-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--navy);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .file-info p {
+            color: var(--brown);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .file-type {
+            display: inline-block;
+            background: var(--light-gray);
+            color: var(--gray);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .viewer {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            display: none;
+            animation: fadeIn 0.5s ease;
+            border-top: 4px solid var(--navy);
+        }
+        
+        .viewer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .viewer-title {
+            display: flex;
+            align-items: center;
+        }
+        
+        .viewer-title i {
+            font-size: 1.5rem;
+            margin-right: 0.8rem;
+            color: var(--navy);
+        }
+        
+        .back-button {
+            background: var(--navy);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .back-button:hover {
+            background: var(--navy-light);
+            transform: translateY(-2px);
+        }
+        
+        .back-button i {
+            margin-right: 0.5rem;
+        }
+        
+        .viewer-content {
+            width: 100%;
+            height: 70vh;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .image-viewer {
+            text-align: center;
+        }
+        
+        .image-viewer img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--light-gray);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .hotel-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 200px;
+            }
+            
+            .documents-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-box {
+                min-width: 100%;
+            }
+            
+            .menu {
+                grid-template-columns: 1fr;
+            }
+            
+            .viewer-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .back-button {
+                margin-top: 1rem;
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="hotel-logo">
+                <i class="fas fa-hotel"></i>
+            </div>
+            <h1>Casa Alegre Luxury Hotel</h1>
+            <p class="tagline">Exquisite venues for unforgettable moments</p>
+            
+            <div class="hotel-nav">
+                <button class="nav-btn">Rooms & Suites</button>
+                <button class="nav-btn">Events & Weddings</button>
+                <button class="nav-btn">Dining</button>
+                <button class="nav-btn">Amenities</button>
+                <button class="nav-btn">Contact</button>
+            </div>
+            
+            <button class="secret-btn" id="secret-btn">
+                <i class="fas fa-key"></i> Access Documents
+            </button>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="hotel-section">
+            <h2 class="section-title"><i class="fas fa-star"></i> Luxury Accommodations</h2>
+            <p>Experience unparalleled comfort in our elegantly appointed rooms and suites, each designed with sophistication and your utmost comfort in mind.</p>
+        </div>
+        
+        <div class="hotel-section">
+            <h2 class="section-title"><i class="fas fa-umbrella-beach"></i> Hotel Amenities</h2>
+            <div class="amenities-grid">
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3>Luxury Spa</h3>
+                    <p>Rejuvenate your senses with our premium treatments</p>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <i class="fas fa-swimming-pool"></i>
+                    </div>
+                    <h3>Infinity Pool</h3>
+                    <p>Stunning views from our temperature-controlled pool</p>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Fitness Center</h3>
+                    <p>State-of-the-art equipment for your wellness journey</p>
+                </div>
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <i class="fas fa-concierge-bell"></i>
+                    </div>
+                    <h3>24/7 Concierge</h3>
+                    <p>Personalized service to meet all your needs</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="documents-section" id="documents-section">
+            <div class="documents-header">
+                <h2 class="section-title"><i class="fas fa-folder"></i> Document Library</h2>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search documents...">
+                </div>
+                <div class="view-toggle">
+                    <button class="toggle-btn active" id="all-btn">All</button>
+                    <button class="toggle-btn" id="pdfs-btn">PDFs</button>
+                    <button class="toggle-btn" id="images-btn">Images</button>
+                </div>
+            </div>
+            
+            <div class="menu" id="menu">
+                <!-- Menu items will be generated by JavaScript -->
+            </div>
+            
+            <div class="viewer" id="viewer">
+                <div class="viewer-header">
+                    <div class="viewer-title">
+                        <i class="fas fa-file-pdf" id="viewer-icon"></i>
+                        <h2 id="viewer-title">Document</h2>
+                    </div>
+                    <button class="back-button" id="back-button">
+                        <i class="fas fa-arrow-left"></i> Back to Documents
+                    </button>
+                </div>
+                <div id="viewer-content">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+            
+            <div class="empty-state" id="empty-state" style="display: none;">
+                <i class="fas fa-folder-open"></i>
+                <h3>No documents found</h3>
+                <p>Try adjusting your search or filter</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-logo">
+            <i class="fas fa-hotel"></i>
+        </div>
+        <p>Casa Alegre Hotel &copy; 2025 | Where Moments Become Memories</p>
+        <p>123 Luxury Avenue, Prestige District | Phone: (123) 456-7890</p>
+    </footer>
+    
+    <script>
+        // Document data
+        const documents = [
+            { 
+                name: "Client Agreement Contract", 
+                file: "client-agreement-contract.pdf", 
+                type: "pdf",
+                category: "Legal"
+            },
+            { 
+                name: "Company Profile", 
+                file: "company-profile.pdf", 
+                type: "pdf",
+                category: "Business"
+            },
+            { 
+                name: "Contingency and Crisis Management Plan", 
+                file: "contingency-and-crisis-management-plan.pdf", 
+                type: "pdf",
+                category: "Operations"
+            },
+            { 
+                name: "Detailed Event Program", 
+                file: "detailed-event-program.pdf", 
+                type: "pdf",
+                category: "Events"
+            },
+            { 
+                name: "Detailed Menu Plan", 
+                file: "detailed-menu-plan.pdf", 
+                type: "pdf",
+                category: "Events"
+            },
+            { 
+                name: "Financial Analysis", 
+                file: "financial-analysis.pdf", 
+                type: "pdf",
+                category: "Finance"
+            },
+            { 
+                name: "Goyena Business Proposal", 
+                file: "goyena-business-proposal-final.pdf", 
+                type: "pdf",
+                category: "Business"
+            },
+            { 
+                name: "Letter of Intent Cover Letter", 
+                file: "letter-of-intent-cover-letter.pdf", 
+                type: "pdf",
+                category: "Legal"
+            },
+            { 
+                name: "Protocol", 
+                file: "protocol.pdf", 
+                type: "pdf",
+                category: "Operations"
+            },
+            { 
+                name: "Sponsor Contract Agreement", 
+                file: "sponsor-contract-agreement-sg-stellar-events.pdf", 
+                type: "pdf",
+                category: "Legal"
+            },
+            { 
+                name: "Thank You Letter", 
+                file: "thank-you-letter.pdf", 
+                type: "pdf",
+                category: "Communication"
+            },
+            { 
+                name: "Working Committees", 
+                file: "working-committees.pdf", 
+                type: "pdf",
+                category: "Operations"
+            },
+            { 
+                name: "Workplan", 
+                file: "workplan.pdf", 
+                type: "pdf",
+                category: "Operations"
+            },
+            { 
+                name: "Sophia Goyena Institutional Assessment", 
+                file: "sophia-goyena-institutional-assessment.pdf", 
+                type: "pdf",
+                category: "Assessments"
+            },
+            { 
+                name: "Sophia Goyena COC2 IA", 
+                file: "sophia-goyena-coc2-ia.pdf", 
+                type: "pdf",
+                category: "Assessments"
+            },
+            { 
+                name: "Albay Pattern", 
+                file: "images/albay-pattern.jpg", 
+                type: "image",
+                category: "Design"
+            },
+            { 
+                name: "Important Reminder for Financial Analysis", 
+                file: "images/important-reminder-for-financial-analysis.jpg", 
+                type: "image",
+                category: "Finance"
+            }
+        ];
+        
+        // Sort documents alphabetically by name
+        documents.sort((a, b) => a.name.localeCompare(b.name));
+        
+        // DOM elements
+        const documentsSection = document.getElementById('documents-section');
+        const secretBtn = document.getElementById('secret-btn');
+        const menuElement = document.getElementById('menu');
+        const viewerElement = document.getElementById('viewer');
+        const viewerTitleElement = document.getElementById('viewer-title');
+        const viewerIconElement = document.getElementById('viewer-icon');
+        const viewerContentElement = document.getElementById('viewer-content');
+        const backButton = document.getElementById('back-button');
+        const searchInput = document.getElementById('search-input');
+        const allBtn = document.getElementById('all-btn');
+        const pdfsBtn = document.getElementById('pdfs-btn');
+        const imagesBtn = document.getElementById('images-btn');
+        const emptyState = document.getElementById('empty-state');
+        
+        let currentFilter = 'all';
+        let currentSearch = '';
+        
+        // Toggle documents section
+        secretBtn.addEventListener('click', () => {
+            if (documentsSection.style.display === 'block') {
+                documentsSection.style.display = 'none';
+                secretBtn.innerHTML = '<i class="fas fa-key"></i> Access Documents';
+            } else {
+                documentsSection.style.display = 'block';
+                secretBtn.innerHTML = '<i class="fas fa-times"></i> Hide Documents';
+                // Scroll to documents section
+                documentsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+        
+        // Generate menu items
+        function generateMenu() {
+            menuElement.innerHTML = '';
+            
+            const filteredDocs = documents.filter(doc => {
+                const matchesFilter = currentFilter === 'all' || 
+                                    (currentFilter === 'pdfs' && doc.type === 'pdf') ||
+                                    (currentFilter === 'images' && doc.type === 'image');
+                
+                const matchesSearch = doc.name.toLowerCase().includes(currentSearch.toLowerCase());
+                
+                return matchesFilter && matchesSearch;
+            });
+            
+            if (filteredDocs.length === 0) {
+                emptyState.style.display = 'block';
+                menuElement.style.display = 'none';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            menuElement.style.display = 'grid';
+            
+            filteredDocs.forEach(doc => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                menuItem.innerHTML = `
+                    <div class="file-icon">
+                        ${doc.type === 'pdf' ? '<i class="fas fa-file-pdf"></i>' : '<i class="fas fa-file-image"></i>'}
+                    </div>
+                    <div class="file-info">
+                        <h3>${doc.name}</h3>
+                        <p>${doc.category}</p>
+                        <span class="file-type">${doc.type.toUpperCase()}</span>
+                    </div>
+                `;
+                
+                menuItem.addEventListener('click', () => {
+                    showDocument(doc);
+                });
+                
+                menuElement.appendChild(menuItem);
+            });
+        }
+        
+        // Show document in viewer
+        function showDocument(doc) {
+            viewerTitleElement.textContent = doc.name;
+            viewerContentElement.innerHTML = '';
+            
+            if (doc.type === 'pdf') {
+                viewerIconElement.className = 'fas fa-file-pdf';
+                const pdfViewer = document.createElement('iframe');
+                pdfViewer.className = 'viewer-content';
+                pdfViewer.src = doc.file;
+                viewerContentElement.appendChild(pdfViewer);
+            } else if (doc.type === 'image') {
+                viewerIconElement.className = 'fas fa-file-image';
+                const imageViewer = document.createElement('div');
+                imageViewer.className = 'image-viewer';
+                const img = document.createElement('img');
+                img.src = doc.file;
+                img.alt = doc.name;
+                imageViewer.appendChild(img);
+                viewerContentElement.appendChild(imageViewer);
+            }
+            
+            // Show viewer and hide menu
+            menuElement.style.display = 'none';
+            viewerElement.style.display = 'block';
+            emptyState.style.display = 'none';
+        }
+        
+        // Back button event
+        backButton.addEventListener('click', () => {
+            viewerElement.style.display = 'none';
+            generateMenu();
+        });
+        
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            generateMenu();
+        });
+        
+        // Filter functionality
+        allBtn.addEventListener('click', () => {
+            setActiveFilter('all');
+        });
+        
+        pdfsBtn.addEventListener('click', () => {
+            setActiveFilter('pdfs');
+        });
+        
+        imagesBtn.addEventListener('click', () => {
+            setActiveFilter('images');
+        });
+        
+        function setActiveFilter(filter) {
+            currentFilter = filter;
+            
+            // Update active button
+            allBtn.classList.remove('active');
+            pdfsBtn.classList.remove('active');
+            imagesBtn.classList.remove('active');
+            
+            if (filter === 'all') allBtn.classList.add('active');
+            if (filter === 'pdfs') pdfsBtn.classList.add('active');
+            if (filter === 'images') imagesBtn.classList.add('active');
+            
+            generateMenu();
+        }
+        
+        // Initialize the page
+        generateMenu();
+    </script>
+</body>
+</html>
